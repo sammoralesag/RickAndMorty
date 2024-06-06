@@ -1,5 +1,8 @@
 package com.example.network
 
+import com.example.network.models.domain.Character
+import com.example.network.models.remote.RemoteCharacter
+import com.example.network.models.remote.toDomainCharacter
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
@@ -10,7 +13,6 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 class KtorClient {
@@ -30,18 +32,28 @@ class KtorClient {
 
     suspend fun getCharacter(id: Int): Character {
         return client.get("character/$id")
-            .body()
+            .body<RemoteCharacter>()
+            .toDomainCharacter()
     }
 }
+//suspend fun getCharacter(id: Int): ApiOperation<Character> {
+//        characterCache[id]?.let { return ApiOperation.Success(it) }
+//        return safeApiCall {
+//            client.get("character/$id")
+//                .body<RemoteCharacter>()
+//                .toDomainCharacter()
+//                .also { characterCache[id] = it }
+//        }
+//    }
 
-@Serializable
-data class Character(
-    val id: Int,
-    val name: String,
-    val origin: Origin
-) {
-    @Serializable
-    data class Origin(
-        val name: String
-    )
-}
+//@Serializable
+//data class Character(
+//    val id: Int,
+//    val name: String,
+//    val origin: Origin
+//) {
+//    @Serializable
+//    data class Origin(
+//        val name: String
+//    )
+//}
