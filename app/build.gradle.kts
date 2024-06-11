@@ -51,6 +51,9 @@ android {
 
 dependencies {
 
+    // Image loading
+    implementation(libs.coil.compose)
+
     implementation(project(":network"))
 
     implementation(libs.androidx.core.ktx)

@@ -19,7 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.network.KtorClient
 import com.example.network.Test
 import com.example.network.models.domain.Character
+import com.example.rickandmorty.screens.CharacterDetailsScreen
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
+import com.example.rickandmorty.ui.theme.RickPrimary
 
 class MainActivity : ComponentActivity() {
 
@@ -41,13 +43,12 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = RickPrimary
                 ) {
-                    Column {
-                        Greeting("Android")
-                        Test()
-                        Text(text = character?.name ?: "no character")
-                    }
+                    CharacterDetailsScreen(
+                        characterId = 1,
+                        ktorClient = KtorClient()
+                    )
                 }
             }
         }
