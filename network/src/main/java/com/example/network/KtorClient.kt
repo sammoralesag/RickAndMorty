@@ -30,30 +30,35 @@ class KtorClient {
         }
     }
 
-    suspend fun getCharacter(id: Int): Character {
-        return client.get("character/$id")
-            .body<RemoteCharacter>()
-            .toDomainCharacter()
+    suspend fun getCharacter(id: Int): ApiOperation<Character> {
+        return safeApiCall {
+            client.get("character/$id")
+                .body<RemoteCharacter>()
+                .toDomainCharacter()
+        }
+    }
+
+    private inline fun <T> safeApiCall(apiCall: () -> T): ApiOperation<T> {
+        return try {
+            ApiOperation.Success(data = apiCall())
+        } catch (e: Exception) {
+            ApiOperation.Failure(exception = e)
+        }
+    }
+
+    sealed interface ApiOperation<T> {
+        data class Success<T>(val data: T) : ApiOperation<T>
+        data class Failure<T>(val exception: Exception) : ApiOperation<T>
+
+        fun onSuccess(block: (T) -> Unit): ApiOperation<T> {
+            if (this is Success) block(data)
+            return this
+        }
+
+        fun onFailure(block: (Exception) -> Unit): ApiOperation<T> {
+            if (this is Failure) block(exception)
+            return this
+        }
     }
 }
-//suspend fun getCharacter(id: Int): ApiOperation<Character> {
-//        characterCache[id]?.let { return ApiOperation.Success(it) }
-//        return safeApiCall {
-//            client.get("character/$id")
-//                .body<RemoteCharacter>()
-//                .toDomainCharacter()
-//                .also { characterCache[id] = it }
-//        }
-//    }
 
-//@Serializable
-//data class Character(
-//    val id: Int,
-//    val name: String,
-//    val origin: Origin
-//) {
-//    @Serializable
-//    data class Origin(
-//        val name: String
-//    )
-//}

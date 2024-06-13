@@ -30,13 +30,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var character by remember {
-                mutableStateOf<Character?>(null)
-            }
-
-            LaunchedEffect(key1 = Unit, block = {
-                character = ktorClient.getCharacter(55)
-            })
+//            var character by remember {
+//                mutableStateOf<Character?>(null)
+//            }
+//
+//            LaunchedEffect(key1 = Unit, block = {
+//                character = ktorClient.getCharacter(55)
+//            })
 
 
             RickAndMortyTheme {
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     color = RickPrimary
                 ) {
                     CharacterDetailsScreen(
-                        characterId = 1,
+                        characterId = 107,
                         ktorClient = KtorClient()
                     )
                 }
