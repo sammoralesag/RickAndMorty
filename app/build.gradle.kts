@@ -54,6 +54,9 @@ dependencies {
     // Image loading
     implementation(libs.coil.compose)
 
+    //navigation
+    implementation(libs.androidx.navigation.compose)
+
     implementation(project(":network"))
 
     implementation(libs.androidx.core.ktx)

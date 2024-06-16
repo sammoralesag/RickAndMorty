@@ -38,7 +38,8 @@ import kotlinx.coroutines.delay
 @Composable
 fun CharacterDetailsScreen(
     characterId: Int,
-    ktorClient: KtorClient
+    ktorClient: KtorClient,
+    onEpisodeClicked: (Int) -> Unit
 ) {
     var character by remember { mutableStateOf<Character?>(null) }
 
@@ -119,7 +120,7 @@ fun CharacterDetailsScreen(
                     )
                     .clip(RoundedCornerShape(12.dp))
                     .clickable {
-//                        onEpisodeClicked(characterId)
+                        onEpisodeClicked(characterId)
                     }
                     .padding(vertical = 8.dp)
                     .fillMaxWidth()
