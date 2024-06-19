@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "character_details") {
                         composable("character_details") {
                             CharacterDetailsScreen(
-                                characterId = 2,
+                                characterId = 1,
                                 ktorClient = ktorClient
                             ) {
                                 navController.navigate("character_episodes/$it")
