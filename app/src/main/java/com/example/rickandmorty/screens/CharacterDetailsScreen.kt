@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import com.example.network.KtorClient
 import com.example.network.models.domain.Character
 import com.example.rickandmorty.components.character.CharacterDetailsNamePlateComponent
@@ -34,6 +35,15 @@ import com.example.rickandmorty.components.common.DataPointComponent
 import com.example.rickandmorty.components.common.LoadingState
 import com.example.rickandmorty.ui.theme.RickAction
 import kotlinx.coroutines.delay
+import javax.inject.Inject
+
+class CharacterRepository @Inject constructor(private val ktorClient: KtorClient) {
+
+}
+
+class CharacterDetailsViewModel @Inject constructor(
+
+) : ViewModel()
 
 @Composable
 fun CharacterDetailsScreen(
