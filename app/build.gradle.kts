@@ -56,7 +56,7 @@ dependencies {
     // Dagger
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-
+    implementation(libs.androidx.navigation.compose)
     // Image loading
     implementation(libs.coil.compose)
 
