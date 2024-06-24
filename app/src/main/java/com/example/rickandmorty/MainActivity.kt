@@ -17,6 +17,7 @@ import androidx.navigation.navArgument
 import com.example.network.KtorClient
 import com.example.rickandmorty.screens.CharacterDetailsScreen
 import com.example.rickandmorty.screens.CharacterEpisodeScreen
+import com.example.rickandmorty.screens.HomeScreen
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import com.example.rickandmorty.ui.theme.RickPrimary
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +49,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = RickPrimary
                 ) {
-                    NavHost(navController = navController, startDestination = "character_details") {
+                    NavHost(navController = navController, startDestination = "hom_screen") {
+                        composable("hom_screen"){
+                            HomeScreen(onCharacterSelected = {
+                                //todo
+                            })
+                        }
                         composable("character_details") {
                             CharacterDetailsScreen(
                                 characterId = 1,
