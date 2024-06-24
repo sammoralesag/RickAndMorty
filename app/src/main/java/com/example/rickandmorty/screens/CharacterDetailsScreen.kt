@@ -3,11 +3,13 @@ package com.example.rickandmorty.screens
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,6 +31,8 @@ import com.example.network.KtorClient
 import com.example.network.KtorClient.ApiOperation
 import com.example.network.models.domain.Character
 import com.example.rickandmorty.components.character.CharacterDetailsNamePlateComponent
+import com.example.rickandmorty.components.character.CharacterGridItem
+import com.example.rickandmorty.components.character.CharacterListItem
 import com.example.rickandmorty.components.common.CharacterImage
 import com.example.rickandmorty.components.common.DataPoint
 import com.example.rickandmorty.components.common.DataPointComponent
@@ -125,51 +129,82 @@ fun CharacterDetailsScreen(
             }
 
             is CharacterDetailsViewState.Success -> {
-                // Name plate
+
                 item {
-                    CharacterDetailsNamePlateComponent(
-                        name = viewState.character.name,
-                        status = viewState.character.status
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        CharacterGridItem(
+                            modifier = Modifier.weight(1f),
+                            character = viewState.character
+                        ) {
+
+                        }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        CharacterGridItem(
+                            modifier = Modifier.weight(1f),
+                            character = viewState.character
+                        ) {
+
+                        }
+                    }
                 }
+                repeat(10) {
+                    item { Spacer(modifier = Modifier.height(16.dp)) }
+                    item {
+                        CharacterListItem(
+                            character = viewState.character,
+                            characterDataPoints = viewState.characterDataPoint
+                        ) {
 
-                item { Spacer(modifier = Modifier.height(8.dp)) }
-
-                // Image
-                item {
-                    CharacterImage(imageUrl = viewState.character.imageUrl)
+                        }
+                    }
                 }
-
-                // Data points
-                items(viewState.characterDataPoint) {
-                    Spacer(modifier = Modifier.height(32.dp))
-                    DataPointComponent(dataPoint = it)
-                }
-
-                item { Spacer(modifier = Modifier.height(32.dp)) }
-
-                // Button
-                item {
-                    Text(
-                        text = "View all episodes",
-                        color = RickAction,
-                        fontSize = 18.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .padding(horizontal = 32.dp)
-                            .border(
-                                width = 1.dp,
-                                color = RickAction,
-                                shape = RoundedCornerShape(12.dp)
-                            )
-                            .clip(RoundedCornerShape(12.dp))
-                            .clickable {
-                                onEpisodeClicked(characterId)
-                            }
-                            .padding(vertical = 8.dp)
-                            .fillMaxWidth()
-                    )
-                }
+//                // Name plate
+//                item {
+//                    CharacterDetailsNamePlateComponent(
+//                        name = viewState.character.name,
+//                        status = viewState.character.status
+//                    )
+//                }
+//
+//                item { Spacer(modifier = Modifier.height(8.dp)) }
+//
+//                // Image
+//                item {
+//                    CharacterImage(imageUrl = viewState.character.imageUrl)
+//                }
+//
+//                // Data points
+//                items(viewState.characterDataPoint) {
+//                    Spacer(modifier = Modifier.height(32.dp))
+//                    DataPointComponent(dataPoint = it)
+//                }
+//
+//                item { Spacer(modifier = Modifier.height(32.dp)) }
+//
+//                // Button
+//                item {
+//                    Text(
+//                        text = "View all episodes",
+//                        color = RickAction,
+//                        fontSize = 18.sp,
+//                        textAlign = TextAlign.Center,
+//                        modifier = Modifier
+//                            .padding(horizontal = 32.dp)
+//                            .border(
+//                                width = 1.dp,
+//                                color = RickAction,
+//                                shape = RoundedCornerShape(12.dp)
+//                            )
+//                            .clip(RoundedCornerShape(12.dp))
+//                            .clickable {
+//                                onEpisodeClicked(characterId)
+//                            }
+//                            .padding(vertical = 8.dp)
+//                            .fillMaxWidth()
+//                    )
+//                }
 
                 item { Spacer(modifier = Modifier.height(64.dp)) }
             }
