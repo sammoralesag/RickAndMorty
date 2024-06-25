@@ -50,14 +50,21 @@ class MainActivity : ComponentActivity() {
                     color = RickPrimary
                 ) {
                     NavHost(navController = navController, startDestination = "hom_screen") {
-                        composable("hom_screen"){
-                            HomeScreen(onCharacterSelected = {
-                                //todo
+                        composable("hom_screen") {
+                            HomeScreen(onCharacterSelected = { characterId ->
+                                navController.navigate("character_details/$characterId")
                             })
                         }
-                        composable("character_details") {
+                        composable(
+                            route = "character_details/{characterId}",
+                            arguments = listOf(navArgument("characterId") {
+                                type = NavType.IntType
+                            })
+                        ) { backStackEntry ->
+                            val characterId: Int =
+                                backStackEntry.arguments?.getInt("characterId") ?: -1
                             CharacterDetailsScreen(
-                                characterId = 1,
+                                characterId = characterId,
                             ) {
                                 navController.navigate("character_episodes/$it")
                             }
